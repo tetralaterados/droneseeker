@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+	<Document>
+	<name>Blue Drone Path</name>
+	<Style id="style1">
+		<LineStyle>
+			<color>64B40014</color>
+			<width>4</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>5aFFFFFF</color>
+		</PolyStyle>
+	</Style>
+		<Placemark>
+			<name> Blue Drone Path </name>
+			<styleUrl>#style1</styleUrl> 
+   		<LineString>
+   		<extrude>1</extrude>
+   		<tessellate>1</tessellate>
+   		<altitudeMode>absolute</altitudeMode>
+			<coordinates>			2.0257,41.5726,1000
+			2.0267,41.5726,1000
+			2.0277,41.5726,1000
+			2.0287,41.5726,1000
+			2.0297,41.5726,1000
+			2.0307,41.5726,1000
+			2.0317,41.5726,1000
+			2.0327,41.5726,1000
+			2.0337,41.5726,1000
+			2.0347,41.5726,1000
+			2.0357,41.5726,1000
+			2.0367,41.5726,1000
+			2.0377,41.5726,1000
+			2.0387,41.5726,1000
+			2.0397,41.5726,1000
+			2.0407,41.5726,1000
+			</coordinates>
+			</LineString>
+		</Placemark>
+</Document></kml>

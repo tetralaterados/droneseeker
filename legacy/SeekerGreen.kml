@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+					<kml xmlns="http://earth.google.com/kml/2.0">
+					<Folder>
+					<Style id="icon_upc">
+    				<IconStyle>
+       				<Icon>
+       			    <href>drone_green.png</href>
+        			</Icon>
+    				</IconStyle>
+					</Style>
+					<Placemark>
+					<name> Seeker Green RSSI = 30 </name>
+					<styleUrl>#icon_upc</styleUrl>
+					<description></description>
+					<Point>
+					<altitudeMode>absolute</altitudeMode>
+					<coordinates>2.0547,41.5826,1000.0</coordinates>
+					</Point>
+					</Placemark>
+					</Folder>
+					</kml>
