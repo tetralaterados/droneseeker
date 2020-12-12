@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <name>Road Styling</name>
+  <Style id="street">
+    <LineStyle>
+      <color>64000000</color>
+      <width>4</width>
+    </LineStyle>
+  </Style>
+  <Placemark>
+    <name> GREEN_BLUE: 1234m</name>
+    <styleUrl>#street</styleUrl>
+    <LineString>
+      <coordinates>
+      2.0407,41.5926,1000.0
+      2.0547,41.5826,1000.0
+      </coordinates>
+    </LineString>
+  </Placemark>
+
+   <Placemark>
+    <name>RED_BLUE: 12324m</name>
+    <styleUrl>#street</styleUrl>
+    <LineString>
+      <coordinates>
+      2.0407,41.5926,1000.0
+      2.0407,41.5726,1000.0
+      </coordinates>
+    </LineString>
+  </Placemark>
+
+   <Placemark>
+    <name>BLUE_GREEN: 12324m</name>
+    <styleUrl>#street</styleUrl>
+    <LineString>
+      <coordinates>
+        2.0547,41.5826,1000.0
+        2.0407,41.5726,1000.0
+      </coordinates>
+    </LineString>
+  </Placemark>
+
+</Document>
+</kml>

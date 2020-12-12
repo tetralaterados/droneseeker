@@ -9,7 +9,7 @@
     				</IconStyle>
 					</Style>
 					<Placemark>
-					<name> Seeker Blue, RSSI = 30 </name>
+					<name> Seeker Blue, RSSI = 30, 12:34:12 </name>
 					<styleUrl>#icon_upc</styleUrl>
 					<description></description>
 					<Point>
