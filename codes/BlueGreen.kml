@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+	<Document>
+	<name>Blue-Green Distance</name>
+	<Style id="style1">
+		<LineStyle>
+			<color>64000014</color>
+			<width>4</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>64000014</color>
+		</PolyStyle>
+	</Style>
+		<Placemark>
+			<name> Blue Green Distance = 2311.0</name>
+			<styleUrl>#style1</styleUrl> 
+   		<LineString>
+   		<extrude>1</extrude>
+   		<tessellate>1</tessellate>
+   		<altitudeMode>distGreenRed</altitudeMode>
+			<coordinates>2.0407,41.5726
+2.065,41.5826			</coordinates>
+			</LineString>
+		</Placemark>
+</Document></kml>
