@@ -1,14 +1,19 @@
 import csv
+import pandas as pd
+
+
+last_points_spline = 10
 
 
 
-
+#Blue Spline
 data_initial = open("seeker_blue_hist.csv", "r")
 data = csv.reader((line.replace('\0','') for line in data_initial), delimiter=",")
-
+df = pd.DataFrame(data)
+df.columns = ['time', 'lat','long','alt','rssi']
+df = df.tail(last_points_spline)
 
 f = open('splineBlue.kml', 'w')
-
 
 f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
 f.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
@@ -31,8 +36,8 @@ f.write("   		<extrude>1</extrude>\n")
 f.write("   		<tessellate>1</tessellate>\n")
 f.write("   		<altitudeMode>absolute</altitudeMode>\n")
 f.write("			<coordinates>")
-for row in data:
-	f.write("			"+row[2]+","+row[1]+","+row[3]+"\n")
+for index, row in df.iterrows():
+  	f.write("			"+row['long']+","+row['lat']+","+row['alt']+"\n")
 f.write("			</coordinates>\n")
 f.write("			</LineString>\n")
 f.write("		</Placemark>\n")
@@ -42,9 +47,13 @@ f.close()
 
 
 
+#Green Spline
+
 data_initial = open("seeker_green_hist.csv", "r")
 data = csv.reader((line.replace('\0','') for line in data_initial), delimiter=",")
-
+df = pd.DataFrame(data)
+df.columns = ['time', 'lat','long','alt','rssi']
+df = df.tail(last_points_spline)
 f = open('splineGreen.kml', 'w')
 
 
@@ -69,8 +78,8 @@ f.write("   		<extrude>1</extrude>\n")
 f.write("   		<tessellate>1</tessellate>\n")
 f.write("   		<altitudeMode>absolute</altitudeMode>\n")
 f.write("			<coordinates>")
-for row in data:
-	f.write("			"+row[2]+","+row[1]+","+row[3]+"\n")
+for index, row in df.iterrows():
+      	f.write("			"+row['long']+","+row['lat']+","+row['alt']+"\n")
 f.write("			</coordinates>\n")
 f.write("			</LineString>\n")
 f.write("		</Placemark>\n")
@@ -79,11 +88,17 @@ f.write("</kml>")
 f.close()
 
 
+
+#Red Spline
 data_initial = open("seeker_red_hist.csv", "r")
 data = csv.reader((line.replace('\0','') for line in data_initial), delimiter=",")
+df = pd.DataFrame(data)
+df.columns = ['time', 'lat','long','alt','rssi']
+df = df.tail(last_points_spline)
+
+
 
 f = open('splineRed.kml', 'w')
-
 
 f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
 f.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
@@ -106,8 +121,8 @@ f.write("   		<extrude>1</extrude>\n")
 f.write("   		<tessellate>1</tessellate>\n")
 f.write("   		<altitudeMode>absolute</altitudeMode>\n")
 f.write("			<coordinates>")
-for row in data:
-	f.write("			"+row[2]+","+row[1]+","+row[3]+"\n")
+for index, row in df.iterrows():
+      	f.write("			"+row['long']+","+row['lat']+","+row['alt']+"\n")
 f.write("			</coordinates>\n")
 f.write("			</LineString>\n")
 f.write("		</Placemark>\n")
