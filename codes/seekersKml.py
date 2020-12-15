@@ -11,7 +11,7 @@ import csv
 import pandas as pd
 
 
-last_points = 2
+last_points = 10
 
 
 

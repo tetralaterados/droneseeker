@@ -9,12 +9,12 @@
 </IconStyle>
 </Style>
 <Placemark>
-<name> Seeker Green, 13:15:36, -15.5</name>
+<name> Seeker Green, 13:15:36, -19.5</name>
 <styleUrl>#icon_upc</styleUrl>
 <description></description>
 <Point>
 <altitudeMode>absolute</altitudeMode>
-<coordinates>2.0547,41.5826,1000</coordinates>
+<coordinates>2.065,41.5826,1000</coordinates>
 </Point>
 </Placemark>
 </Folder>

@@ -9,7 +9,7 @@ import csv
 import pandas as pd
 
 
-last_points = 5
+last_points = 15
 
 
 
