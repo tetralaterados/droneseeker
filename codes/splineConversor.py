@@ -9,7 +9,7 @@ import csv
 import pandas as pd
 
 
-last_points_spline = 10
+last_points = 5
 
 
 
@@ -18,7 +18,7 @@ data_initial = open("seeker_blue_hist.csv", "r")
 data = csv.reader((line.replace('\0','') for line in data_initial), delimiter=",")
 df = pd.DataFrame(data)
 df.columns = ['time', 'lat','long','alt','rssi']
-df = df.tail(last_points_spline)
+df = df.tail(last_points)
 
 f = open('splineBlue.kml', 'w')
 
@@ -60,7 +60,7 @@ data_initial = open("seeker_green_hist.csv", "r")
 data = csv.reader((line.replace('\0','') for line in data_initial), delimiter=",")
 df = pd.DataFrame(data)
 df.columns = ['time', 'lat','long','alt','rssi']
-df = df.tail(last_points_spline)
+df = df.tail(last_points)
 f = open('splineGreen.kml', 'w')
 
 
@@ -101,7 +101,7 @@ data_initial = open("seeker_red_hist.csv", "r")
 data = csv.reader((line.replace('\0','') for line in data_initial), delimiter=",")
 df = pd.DataFrame(data)
 df.columns = ['time', 'lat','long','alt','rssi']
-df = df.tail(last_points_spline)
+df = df.tail(last_points)
 
 
 
