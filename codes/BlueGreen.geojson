@@ -1,0 +1,31 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.0407,
+            41.5726
+          ],
+          [
+            2.065,
+            41.5826
+          ]
+        ]
+      },
+      "properties": {
+        "name": " Blue Green Distance = 2311.0",
+        "styleUrl": "#style1",
+        "styleHash": "-9628bfe",
+        "stroke": "#140000",
+        "stroke-opacity": 0.39215686274509803,
+        "stroke-width": 4,
+        "fill": "#140000",
+        "fill-opacity": 0.39215686274509803
+      }
+    }
+  ]
+}

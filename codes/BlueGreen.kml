@@ -12,14 +12,14 @@
 		</PolyStyle>
 	</Style>
 		<Placemark>
-			<name> Blue Green Distance = 2311.0</name>
+			<name> Blue Green Distance = 1464.0</name>
 			<styleUrl>#style1</styleUrl> 
    		<LineString>
    		<extrude>1</extrude>
    		<tessellate>1</tessellate>
    		<altitudeMode>distGreenRed</altitudeMode>
-			<coordinates>2.0407,41.5726
-2.065,41.5826			</coordinates>
+			<coordinates>-2.2699,43.1822
+-2.28641,43.18747			</coordinates>
 			</LineString>
 		</Placemark>
 </Document></kml>

@@ -14,7 +14,6 @@ import pandas as pd
 last_points = 10
 
 
-
 #Blue Seeker
 data_initial = open("seeker_blue_hist.csv", "r")
 data = csv.reader((line.replace('\0','') for line in data_initial), delimiter=",")
@@ -28,6 +27,9 @@ latitude = df2.lat.values[0]
 longitude = df2.long.values[0]
 altitude = df2.alt.values[0]
 rssimean = str(df1["rssi"].mean())
+rssimean = round(float(rssimean), 5)
+rssimean = str(rssimean)
+
 f = open('SeekerBlue.kml', 'w')
 f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
 f.write('<kml xmlns="http://earth.google.com/kml/2.0">\n')
@@ -77,6 +79,9 @@ latitude = df2.lat.values[0]
 longitude = df2.long.values[0]
 altitude = df2.alt.values[0]
 rssimean = str(df1["rssi"].mean())
+rssimean = round(float(rssimean), 5)
+rssimean = str(rssimean)
+
 f = open('SeekerRed.kml', 'w')
 f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
 f.write('<kml xmlns="http://earth.google.com/kml/2.0">\n')
@@ -89,7 +94,7 @@ f.write('	</Icon>\n')
 f.write('</IconStyle>\n')			
 f.write('</Style>\n')			
 f.write('<Placemark>\n')	
-f.write('<name> Seeker Blue, ')
+f.write('<name> Seeker Red, ')
 f.write(time)
 f.write(', ')
 f.write(rssimean)
@@ -126,6 +131,9 @@ latitude = df2.lat.values[0]
 longitude = df2.long.values[0]
 altitude = df2.alt.values[0]
 rssimean = str(df1["rssi"].mean())
+rssimean = round(float(rssimean), 5)
+rssimean = str(rssimean)
+
 f = open('SeekerGreen.kml', 'w')
 f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
 f.write('<kml xmlns="http://earth.google.com/kml/2.0">\n')
