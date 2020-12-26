@@ -5,3 +5,4 @@ while True:
     call(["python", "midPoint.py"])
     call(["python", "midPointPlot.py"])
     call(["python", "triangle.py"])
+    call(["python", "circles.py"])

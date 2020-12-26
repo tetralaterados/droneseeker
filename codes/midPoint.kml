@@ -9,12 +9,12 @@
 </IconStyle>
 </Style>
 <Placemark>
-<name> Threat,43.18357, -2.27891</name>
+<name> Mid Point,43.18552, -2.2811</name>
 <styleUrl>#icon_upc</styleUrl>
 <description></description>
 <Point>
 <altitudeMode>clampToGround</altitudeMode>
-<coordinates>-2.27891,43.18357</coordinates>
+<coordinates>-2.2811,43.18552</coordinates>
 </Point>
 </Placemark>
 </Folder>
