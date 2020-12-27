@@ -1,55 +1,71 @@
-/// 
-///                 Arduino      SX1278_Lora
-///                 GND----------GND   (ground in)
-///                 3V3----------3.3V  (3.3V in)
-/// interrupt 0 pin D2-----------DIO0  (interrupt request out)
-///          SS pin D10----------NSS   (CS chip select in)
-///         SCK pin D13----------SCK   (SPI clock in)
-///        MOSI pin D11----------MOSI  (SPI Data in)
-///        MISO pin D12----------MISO  (SPI Data out)
-/// 
+/*
+ * LoRa E32-TTL-100
+ * Start device, reset or write to the Serial to send a message.
+ * https://www.mischianti.org/2019/10/15/lora-e32-device-for-arduino-esp32-or-esp8266-specs-and-basic-usage-part-1/
+ *
+ * E32-TTL-100----- Arduino UNO
+ * M0         ----- GND
+ * M1         ----- GND
+ * TX         ----- PIN 2 (PullUP)
+ * RX         ----- PIN 3 (PullUP & Voltage divider)
+ * AUX        ----- Not connected
+ * VCC        ----- 3.3v/5v
+ * GND        ----- GND
+ *
+ */
+#include "Arduino.h"
+#include "LoRa_E32.h"
 
-#include <SPI.h>
-#include <RH_RF95.h>
+// ---------- esp8266 pins --------------
+//LoRa_E32 e32ttl(D2, D3, D5, D7, D6);
+//LoRa_E32 e32ttl(D2, D3); // Config without connect AUX and M0 M1
 
-// Singleton instance of the radio driver
-RH_RF95 SX1278;
+//#include <SoftwareSerial.h>
+//SoftwareSerial mySerial(D2, D3);  // e32 TX e32 RX
+//LoRa_E32 e32ttl(&mySerial, D5, D7, D6);
+// -------------------------------------
 
-int led = 9;
+// ---------- Arduino pins --------------
+//LoRa_E32 e32ttl(2, 3, 5, 7, 6);
+LoRa_E32 e32ttl100(2, 3); // Config without connect AUX and M0 M1
 
-void setup()
-{
+//#include <SoftwareSerial.h>
+//SoftwareSerial mySerial(2, 3);  // e32 TX e32 RX
+//LoRa_E32 e32ttl(&mySerial, 5, 7, 6);
+// -------------------------------------
 
-    pinMode(led, OUTPUT);
-    Serial.begin(9600);
-    while (!Serial) ; // Wait for serial port to be available
-    if (!SX1278.init())
-        Serial.println("init failed");
-    // Defaults init are 434.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
-if (SX1278.init()) Serial.println("init good");
+void setup() {
+  Serial.begin(9600);
+  delay(500);
+
+  // Startup all pins and UART
+  e32ttl100.begin();
+
+//  If you have ever change configuration you must restore It
+//  ResponseStructContainer c;
+//  c = e32ttl100.getConfiguration();
+//  Configuration configuration = *(Configuration*) c.data;
+//  Serial.println(c.status.getResponseDescription());
+//  configuration.CHAN = 0x17;
+//  configuration.OPTION.fixedTransmission = FT_TRANSPARENT_TRANSMISSION;
+//  e32ttl100.setConfiguration(configuration, WRITE_CFG_PWR_DWN_SAVE);
+//  c.close();
+
+
 }
 
-void loop()
-{
-    if (SX1278.available())
-    {
-        // Should be a message for us now
-        uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
-        uint8_t len = sizeof(buf);
-        if (SX1278.recv(buf, &len))
-        {
-            digitalWrite(led, HIGH);
-            //RH_RF95::printBuffer("request: ", buf, len);
-            Serial.print("Receive Message: ");
-            Serial.println((char*)buf);
-            Serial.print("RSSI: ");
-            Serial.println(SX1278.lastRssi(), DEC);
-            // Send a reply
-            digitalWrite(led, LOW);
-        }
-        else
-        {
-            Serial.println("recv failed");
-        }
-    }
+void loop() {
+  // If something available
+  if (e32ttl100.available()>1) {
+    // read the String message
+  ResponseContainer rc = e32ttl100.receiveMessage();
+  // Is something goes wrong print error
+  if (rc.status.code!=1){
+    rc.status.getResponseDescription();
+  }else{
+    // Print the data received
+    Serial.print(rc.data);
+  }
+  }
+  
 }
