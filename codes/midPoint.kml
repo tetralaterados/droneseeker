@@ -9,12 +9,12 @@
 </IconStyle>
 </Style>
 <Placemark>
-<name> Mid Point,43.18552, -2.2811</name>
+<name> Mid Point,42.59742, -0.80648</name>
 <styleUrl>#icon_upc</styleUrl>
 <description></description>
 <Point>
 <altitudeMode>clampToGround</altitudeMode>
-<coordinates>-2.2811,43.18552</coordinates>
+<coordinates>-0.80648,42.59742</coordinates>
 </Point>
 </Placemark>
 </Folder>

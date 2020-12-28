@@ -17,7 +17,7 @@ last_points = 5
 #Blue Seeker
 data_initial = open("seeker_blue_hist.csv", "r")
 data = csv.reader((line.replace('\0','') for line in data_initial), delimiter=",")
-df = pd.DataFrame(data).dropna
+df = pd.DataFrame(data)
 df.columns = ['time', 'lat','long','alt','rssi']
 df1 = df.tail(last_points)
 df1[["rssi"]] = df1[["rssi"]].apply(pd.to_numeric)

@@ -9,8 +9,8 @@ import csv
 import re
 
 ser = serial.Serial(
-    port='COM8',\
-    baudrate=9600,\
+    port='COM3',\
+    baudrate=115200,\
     parity=serial.PARITY_NONE,\
   # stopbits=serial.STOPBITS_ONE,\
    # bytesize=serial.EIGHTBITS,\
