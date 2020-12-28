@@ -1,19 +1,22 @@
 #include <SoftwareSerial.h> 
 #include <SPI.h>
 #include <RH_RF95.h>
-#include <Adafruit_GPS.h>
 #include <PString.h>
+#include <TinyGPS++.h>
 
 
+static const int RXPin = 5, TXPin = 7;
+static const uint32_t GPSBaud = 9600;
+SoftwareSerial ss(RXPin, TXPin);
+TinyGPSPlus gps;
+String timegps = "";
 SoftwareSerial loraSerial(3, 4); // e32 TX e32 RX
-SoftwareSerial gpsSerial(5, 7);
-Adafruit_GPS GPS(&gpsSerial);
 
 RH_RF95 SX1278;
 
 
 String seeker = "SB";
-int loc_decimals = 4;
+int loc_decimals = 5;
 char buffer[40];
 String rssi = "";
 
@@ -21,7 +24,7 @@ void setup() {
 // PC Serial
 
 Serial.begin(115200);
-
+Serial.println("Setup");
   // LoRa
   loraSerial.begin(9600);
 
@@ -32,12 +35,7 @@ Serial.begin(115200);
 
 // GPS
 
-  // 9600 NMEA is the default baud rate for Adafruit MTK GPS's- some use 4800
-  GPS.begin(9600);
-  // uncomment this line to turn on RMC (recommended minimum) and GGA (fix data) including altitude
-  GPS.sendCommand(PMTK_SET_NMEA_OUTPUT_RMCGGA);
-  // Set the update rate
-  GPS.sendCommand(PMTK_SET_NMEA_UPDATE_1HZ);   // 1 Hz update rate
+ss.begin(GPSBaud);
 
 
 }
@@ -53,35 +51,19 @@ void loop() {
 
 
 
-//////////////////////GPS 
-  char c = GPS.read();
-  if (GPS.newNMEAreceived()) {
-    // a tricky thing here is if we print the NMEA sentence, or data
-    // we end up not listening and catching other sentences!
-    // so be very wary if using OUTPUT_ALLDATA and trytng to print out data
-    //Serial.println(GPS.lastNMEA());   // this also sets the newNMEAreceived() flag to false
+//////////////////////GPS
+printDateTime(gps.date, gps.time);
+str+= String(timegps);
+str += ",";
+str+= String(gps.location.lat(),loc_decimals);
+str += ",";
+str+= String(gps.location.lng(),loc_decimals);
+str += ",";
+str+= String(gps.altitude.meters(),0);
+str += ",";
 
-  if (!GPS.parse(GPS.lastNMEA()))   // this also sets the newNMEAreceived() flag to false
-      return;  // we can fail to parse a sentence in which case we should just wait for another
-  }
 
 
-  
-  str += String(GPS.hour, DEC);
-  str += ":";
-  str += String(GPS.minute, DEC);
-  str += ":";
-  str += String(GPS.seconds, DEC);
-  str += ",";
-
-  if(GPS.lat == 'E'){ str += "-";}
-  str += String(GPS.latitude, loc_decimals);
-  str += ",";
-  if(GPS.lon == 'S'){ str += "-";}
-  str += String(GPS.longitude, loc_decimals);
-  str += ",";
-  str += String(GPS.altitude);
-  str += ",";    
 /////////////////////RSSI
 if (SX1278.available()){
             rssi = String(SX1278.lastRssi(),DEC);
@@ -89,11 +71,56 @@ if (SX1278.available()){
 str += rssi;
 
 ////////////// Sending via LoRa
-
-  loraSerial.println(str);
   Serial.println(str);
+  loraSerial.println(str);
+
+
+smartDelay(1000);
+
+  if (millis() > 5000 && gps.charsProcessed() < 10){
+    Serial.println(F("No GPS data received: check wiring"));}
 
 
 
-delay(1000);
+}
+
+
+static void smartDelay(unsigned long ms)
+{
+  unsigned long start = millis();
+  do 
+  {
+    while (ss.available())
+      gps.encode(ss.read());
+  } while (millis() - start < ms);
+}
+
+
+static void printDateTime(TinyGPSDate &d, TinyGPSTime &t)
+{
+  if (!d.isValid())
+  {
+    //Serial.print(F("********** "));
+  }
+  else
+  {
+    char sz[32];
+    sprintf(sz, "%02d/%02d/%02d ", d.month(), d.day(), d.year());
+    //Serial.print(sz);
+  }
+  
+  if (!t.isValid())
+  {
+   // Serial.print(F("******** "));
+  }
+  else
+  {
+    char sz[32] = "";
+    sprintf(sz, "%02d:%02d:%02d", t.hour(), t.minute(), t.second());
+   // Serial.print(sz);
+    timegps = sz;
+  }
+  
+ // printInt(d.age(), d.isValid(), 5);
+  smartDelay(0);
 }
