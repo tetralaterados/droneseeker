@@ -10,16 +10,16 @@ static const uint32_t GPSBaud = 9600;
 SoftwareSerial ss(RXPin, TXPin);
 TinyGPSPlus gps;
 String timegps = "";
+int sec;
 SoftwareSerial loraSerial(3, 4); // e32 TX e32 RX
 
 RH_RF95 SX1278;
 
 
-String seeker = "SB";
+String seeker = "SR";
 int loc_decimals = 5;
 char buffer[40];
 String rssi = "";
-
 void setup() {
 // PC Serial
 
@@ -72,10 +72,17 @@ str += rssi;
 
 ////////////// Sending via LoRa
   Serial.println(str);
-  loraSerial.println(str);
-
-
-smartDelay(1000);
+  int lastsec = sec % 10;
+  if (seeker == "SG" && (lastsec == 0 || lastsec == 3  || lastsec == 6)){
+  Serial.println("Send LoRa");
+  loraSerial.println(str);}
+  if (seeker == "SB" && (lastsec == 1 || lastsec == 4  || lastsec == 7)){
+  Serial.println("Send LoRa");
+  loraSerial.println(str);}
+  if (seeker == "SR" && (lastsec == 2 || lastsec == 5  || lastsec == 8)){
+  Serial.println("Send LoRa");
+  loraSerial.println(str);}
+  smartDelay(1000);
 
   if (millis() > 5000 && gps.charsProcessed() < 10){
     Serial.println(F("No GPS data received: check wiring"));}
@@ -118,6 +125,7 @@ static void printDateTime(TinyGPSDate &d, TinyGPSTime &t)
     char sz[32] = "";
     sprintf(sz, "%02d:%02d:%02d", t.hour(), t.minute(), t.second());
    // Serial.print(sz);
+    sec = t.second();
     timegps = sz;
   }
   
