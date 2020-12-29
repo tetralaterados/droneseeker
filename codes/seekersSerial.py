@@ -23,7 +23,7 @@ while True:
     line = line.decode()
     datablocks = re.split(',+', line)
     count = len(datablocks)
-    if count > 1:
+    if count == 6:
        seeker =  datablocks[0]
        time   =  datablocks[1]
        lat    =  datablocks[2]
