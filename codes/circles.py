@@ -9,7 +9,9 @@ from polycircles import polycircles
 import numpy as np
 
 last_points = 5 #last points to read to calculate mean and percentils of RSSI
-rssitrans = 10 #RSSi transformation function (to review)
+rssitrans_quad = 0.03573 #Quadratic coefficient of the f(RSSI) = Distance. It follows a model like: Distance = coefquad·RSSI^2 + coeflin·RSSI + zero
+rssitrans_lin  = 5.294   #Linear coefficient
+rssitrans_off  = 192.9   #Offset coeficient
 vertices = 36 #  Circles vertices. 36 is good 
 transparency = 100 #0 to 200
 
@@ -29,11 +31,10 @@ longitude = float(df2.long.values[0])
 altitude = float(df2.alt.values[0])
 rssimean = str(df1["rssi"].mean())
 rssimean = round(float(rssimean), 5)
-radius = abs(rssimean*rssitrans)
+radius = abs(rssitrans_quad*rssimean*rssimean+rssitrans_lin*rssimean+rssitrans_off)
 
-radius_outer = abs(first_quartile*rssitrans)
-radius_inner = abs(third_quartile*rssitrans)
-
+radius_outer = abs(rssitrans_quad*first_quartile*first_quartile+rssitrans_lin*first_quartile+rssitrans_off)
+radius_inner = abs(rssitrans_quad*third_quartile*third_quartile+rssitrans_lin*third_quartile+rssitrans_off)
 
 outer_polycircle = polycircles.Polycircle(latitude=latitude,
                                     longitude=longitude,
@@ -71,10 +72,10 @@ longitude = float(df2.long.values[0])
 altitude = float(df2.alt.values[0])
 rssimean = str(df1["rssi"].mean())
 rssimean = round(float(rssimean), 5)
-radius = abs(rssimean*rssitrans)
+radius = abs(rssitrans_quad*rssimean*rssimean+rssitrans_lin*rssimean+rssitrans_off)
 
-radius_outer = abs(first_quartile*rssitrans)
-radius_inner = abs(third_quartile*rssitrans)
+radius_outer = abs(rssitrans_quad*first_quartile*first_quartile+rssitrans_lin*first_quartile+rssitrans_off)
+radius_inner = abs(rssitrans_quad*third_quartile*third_quartile+rssitrans_lin*third_quartile+rssitrans_off)
 
 outer_polycircle = polycircles.Polycircle(latitude=latitude,
                                     longitude=longitude,
@@ -111,10 +112,10 @@ longitude = float(df2.long.values[0])
 altitude = float(df2.alt.values[0])
 rssimean = str(df1["rssi"].mean())
 rssimean = round(float(rssimean), 5)
-radius = abs(rssimean*rssitrans)
+radius = abs(rssitrans_quad*rssimean*rssimean+rssitrans_lin*rssimean+rssitrans_off)
 
-radius_outer = abs(first_quartile*rssitrans)
-radius_inner = abs(third_quartile*rssitrans)
+radius_outer = abs(rssitrans_quad*first_quartile*first_quartile+rssitrans_lin*first_quartile+rssitrans_off)
+radius_inner = abs(rssitrans_quad*third_quartile*third_quartile+rssitrans_lin*third_quartile+rssitrans_off)
 
 outer_polycircle = polycircles.Polycircle(latitude=latitude,
                                     longitude=longitude,
